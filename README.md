@@ -1,22 +1,12 @@
 # Phone System Application
 
-For phone-api commands:
-
-## Project setup
+## phone-api commands
 ```
 mvn clean install
-```
-### Run
-```
 mvn spring-boot:run
 ```
-For phone-ui commands:
-
-## Project setup
+### phone-ui commands
 ```
 npm install
-```
-### Run
-```
 npm start
 ```
