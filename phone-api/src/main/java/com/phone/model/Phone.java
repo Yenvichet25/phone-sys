@@ -1,10 +1,10 @@
-package com.bezkoder.spring.datajpa.model;
+package com.phone.model;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "tutorials")
-public class Tutorial {
+@Table(name = "td_phone")
+public class Phone {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,11 +19,11 @@ public class Tutorial {
 	@Column(name = "published")
 	private boolean published;
 
-	public Tutorial() {
+	public Phone() {
 
 	}
 
-	public Tutorial(String title, String description, boolean published) {
+	public Phone(String title, String description, boolean published) {
 		this.title = title;
 		this.description = description;
 		this.published = published;
@@ -59,7 +59,7 @@ public class Tutorial {
 
 	@Override
 	public String toString() {
-		return "Tutorial [id=" + id + ", title=" + title + ", desc=" + description + ", published=" + published + "]";
+		return "Phone [id=" + id + ", title=" + title + ", desc=" + description + ", published=" + published + "]";
 	}
 
 }

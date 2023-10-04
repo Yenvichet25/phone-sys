@@ -1,19 +1,19 @@
 import React, { Component } from "react";
-import TutorialDataService from "../services/tutorial.service";
+import PhoneDataService from "../services/phone.service";
 import { withRouter } from '../common/with-router';
 
-class Tutorial extends Component {
+class Phone extends Component {
   constructor(props) {
     super(props);
     this.onChangeTitle = this.onChangeTitle.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
-    this.getTutorial = this.getTutorial.bind(this);
+    this.getPhone = this.getPhone.bind(this);
     this.updatePublished = this.updatePublished.bind(this);
-    this.updateTutorial = this.updateTutorial.bind(this);
-    this.deleteTutorial = this.deleteTutorial.bind(this);
+    this.updatePhone = this.updatePhone.bind(this);
+    this.deletePhone = this.deletePhone.bind(this);
 
     this.state = {
-      currentTutorial: {
+      currentPhone: {
         id: null,
         title: "",
         description: "",
@@ -24,7 +24,7 @@ class Tutorial extends Component {
   }
 
   componentDidMount() {
-    this.getTutorial(this.props.router.params.id);
+    this.getPhone(this.props.router.params.id);
   }
 
   onChangeTitle(e) {
@@ -32,8 +32,8 @@ class Tutorial extends Component {
 
     this.setState(function(prevState) {
       return {
-        currentTutorial: {
-          ...prevState.currentTutorial,
+        currentPhone: {
+          ...prevState.currentPhone,
           title: title
         }
       };
@@ -44,18 +44,18 @@ class Tutorial extends Component {
     const description = e.target.value;
     
     this.setState(prevState => ({
-      currentTutorial: {
-        ...prevState.currentTutorial,
+      currentPhone: {
+        ...prevState.currentPhone,
         description: description
       }
     }));
   }
 
-  getTutorial(id) {
-    TutorialDataService.get(id)
+  getPhone(id) {
+    PhoneDataService.get(id)
       .then(response => {
         this.setState({
-          currentTutorial: response.data
+          currentPhone: response.data
         });
         console.log(response.data);
       })
@@ -66,17 +66,17 @@ class Tutorial extends Component {
 
   updatePublished(status) {
     var data = {
-      id: this.state.currentTutorial.id,
-      title: this.state.currentTutorial.title,
-      description: this.state.currentTutorial.description,
+      id: this.state.currentPhone.id,
+      title: this.state.currentPhone.title,
+      description: this.state.currentPhone.description,
       published: status
     };
 
-    TutorialDataService.update(this.state.currentTutorial.id, data)
+    PhoneDataService.update(this.state.currentPhone.id, data)
       .then(response => {
         this.setState(prevState => ({
-          currentTutorial: {
-            ...prevState.currentTutorial,
+          currentPhone: {
+            ...prevState.currentPhone,
             published: status
           }
         }));
@@ -87,15 +87,15 @@ class Tutorial extends Component {
       });
   }
 
-  updateTutorial() {
-    TutorialDataService.update(
-      this.state.currentTutorial.id,
-      this.state.currentTutorial
+  updatePhone() {
+    PhoneDataService.update(
+      this.state.currentPhone.id,
+      this.state.currentPhone
     )
       .then(response => {
         console.log(response.data);
         this.setState({
-          message: "The tutorial was updated successfully!"
+          message: "The Phone was updated successfully!"
         });
       })
       .catch(e => {
@@ -103,11 +103,11 @@ class Tutorial extends Component {
       });
   }
 
-  deleteTutorial() {    
-    TutorialDataService.delete(this.state.currentTutorial.id)
+  deletePhone() {    
+    PhoneDataService.delete(this.state.currentPhone.id)
       .then(response => {
         console.log(response.data);
-        this.props.router.navigate('/tutorials');
+        this.props.router.navigate('/Phones');
       })
       .catch(e => {
         console.log(e);
@@ -115,13 +115,13 @@ class Tutorial extends Component {
   }
 
   render() {
-    const { currentTutorial } = this.state;
+    const { currentPhone } = this.state;
 
     return (
       <div>
-        {currentTutorial ? (
+        {currentPhone ? (
           <div className="edit-form">
-            <h4>Tutorial</h4>
+            <h4>Phone</h4>
             <form>
               <div className="form-group">
                 <label htmlFor="title">Title</label>
@@ -129,7 +129,7 @@ class Tutorial extends Component {
                   type="text"
                   className="form-control"
                   id="title"
-                  value={currentTutorial.title}
+                  value={currentPhone.title}
                   onChange={this.onChangeTitle}
                 />
               </div>
@@ -139,7 +139,7 @@ class Tutorial extends Component {
                   type="text"
                   className="form-control"
                   id="description"
-                  value={currentTutorial.description}
+                  value={currentPhone.description}
                   onChange={this.onChangeDescription}
                 />
               </div>
@@ -148,11 +148,11 @@ class Tutorial extends Component {
                 <label>
                   <strong>Status:</strong>
                 </label>
-                {currentTutorial.published ? "Published" : "Pending"}
+                {currentPhone.published ? "Published" : "Pending"}
               </div>
             </form>
 
-            {currentTutorial.published ? (
+            {currentPhone.published ? (
               <button
                 className="badge badge-primary mr-2"
                 onClick={() => this.updatePublished(false)}
@@ -170,7 +170,7 @@ class Tutorial extends Component {
 
             <button
               className="badge badge-danger mr-2"
-              onClick={this.deleteTutorial}
+              onClick={this.deletePhone}
             >
               Delete
             </button>
@@ -178,7 +178,7 @@ class Tutorial extends Component {
             <button
               type="submit"
               className="badge badge-success"
-              onClick={this.updateTutorial}
+              onClick={this.updatePhone}
             >
               Update
             </button>
@@ -187,7 +187,7 @@ class Tutorial extends Component {
         ) : (
           <div>
             <br />
-            <p>Please click on a Tutorial...</p>
+            <p>Please click on a Phone...</p>
           </div>
         )}
       </div>
@@ -195,4 +195,4 @@ class Tutorial extends Component {
   }
 }
 
-export default withRouter(Tutorial);
+export default withRouter(Phone);
